@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Polyclinic.Web.Models.DoctorViewModel>
+<div>
+    <h3>Наши врачи</h3>
+    <p class="lead">
+        @* Класс .table-striped добавит серый фон нечётным строкам *@
+        <table class="table table-striped table-hover" style="width:100%">
+            <tr>
+                <td style="min-width:200px">Врач</td>
+                <td style="min-width:100px">Время приема</td>
+                <td style="min-width:100px">Кабинет</td>
+                <td></td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Lastname</td>
+                    <td>
+                        @(item.StartTimeOfReceipt +
+                                           " - "
+                                          + item.EndTimeOfReceipt)
+                    </td>
+                    <td>@item.Room</td>
+                    <td>
+
+                        @Ajax.ActionLink("Записаться",
+                                         "RecordsList",
+                                         new { id = item.Id },
+                                         new AjaxOptions { UpdateTargetId = "results" },
+                                         new { @class = "btn btn-primary btn-large" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </p>
+</div>

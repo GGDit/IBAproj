@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Поликлиника";
+}
+
+@using Polyclinic.Web.Models
+@model IndexViewModel
+
+@* Компонент Jumbotron предназначен для создания контента или информации на веб-сайте, который занимает всю ширину контейнера куда он помещен
+    и является очень большим, чтобы пользователи обратили на него внимание. *@
+<div class="jumbotron">
+    <h2>@Polyclinic.Web.Resources.Resource.Welcome</h2>
+    <p class="lead">Выберите специальность, врача и время приема </p>
+
+    @using (Ajax.BeginForm("DocSearch",
+        new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        SelectList spec = new SelectList(Model.Speciality.ToArray());
+        @Html.DropDownList("selectSpec", spec)
+        <input id="Submit1" type="submit" value="ОК" class="btn btn-primary btn-large" />
+    }
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>У нас работают лучшие специалисты</h2>
+            <p>
+                <img src="/Content/vrachi.jpg" width="200" height="100" />
+            </p>
+        </div>
+        <div class="col-md-8" style="background-color: lightgrey">
+            <div id="results">
+                @Html.Partial("DocSearch", Model.Doctors.ToList())
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@model Polyclinic.Web.Models.ListRecordViewModel
+
+<div class="form-horizontal">
+    <h4>
+        @(Model.Doctor.Specialty + "  " + Model.Doctor.Lastname)
+    </h4>
+    <h4>
+        @( "Кабинет: " + Model.Doctor.Room)
+    </h4>
+    <hr />
+    <br />
+</div>
+@{
+    int i = 1;
+    string sid = "res";
+}
+@foreach (var item in Model.Dates)
+{
+    sid = "res" + i;
+    <div>
+        @Ajax.ActionLink(item.ToShortDateString(), "MakeRecord",
+                new { id = Model.Doctor.Id, date = item,res=sid},
+                new AjaxOptions { UpdateTargetId = sid },
+                new { @class = "btn btn-primary btn-middle" }
+                )
+        <div id=@sid>
+
+        </div>
+    </div>
+    i++;
+    <br />
+}

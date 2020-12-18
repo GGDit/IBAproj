@@ -1,0 +1,22 @@
+﻿@model Polyclinic.Web.Models.LoginModel
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.ValidationSummary(false, "", 
+       new { @style = "color:red" })
+        <input type="hidden" name="returnUrl" 
+               value="@ViewBag.returnUrl" />
+        <p>
+            <label style="color:aqua">Имя</label><br />
+            @Html.EditorFor(x => x.Name)
+
+        </p>
+        <p>
+            <label style="color:aqua">Пароль</label><br />
+            @Html.EditorFor(x => x.Password)
+        </p>
+        <p><button type="submit">Войти</button></p>
+    </div>
+}

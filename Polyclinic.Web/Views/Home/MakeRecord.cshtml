@@ -1,0 +1,73 @@
+﻿@model Polyclinic.Web.Models.RecordViewModel
+@{
+    ViewBag.Title = "Запись к врачу";
+}
+
+
+@if (!(bool)Session[Session["div"].ToString()])
+{
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(model => model.DoctorId)
+
+            <div class="form-horizontal">
+
+                <hr />
+                <table>
+                    <tr>
+                        @foreach (var item in Model.Time)
+                        {
+                            if (item.Value == 1)
+                            {
+                                <td style="color:red">
+                                    @item.Key&nbsp;&nbsp;
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:green">
+                                    @Html.RadioButtonFor(model => model.TimeOfRecord,
+                                    item.Key)
+                                    @item.Key
+                                    &nbsp;&nbsp;
+                                </td>
+                            }
+                        }
+                    </tr>
+
+                </table>
+            </div>
+            <div class="form-group">
+
+                <br />
+
+                @Html.Label("Введите фамилию",
+                        htmlAttributes:
+                        new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.EditorFor(model => model.PatientLastname,
+                new
+                {
+                    htmlAttributes = new { @class = "form-control" }
+                })
+
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Подтвердите запись"
+                           class="btn btn-default" />
+                    <input type="reset" value="Отмена"
+                           class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div></div>
+}
